@@ -7,67 +7,31 @@ if(!empty($_POST['email']) && !empty($_POST['name']) && !empty($_POST['message']
     $object  = $name." vous contacte depuis le portfolio";   
     $message = htmlspecialchars($_POST['message']);
 
-    date_default_timezone_set('Europe/Paris');
-    $content= '<html>
-    <head>
-        <meta charset="utf-8">
-        <title>HTML email template</title>
-        <style>
-            *{margin: 0;padding: 0;box-sizing: border-box;}
-            body{font-family: sans-serif;min-height: 100vh;}
-            .page{width: 768px;margin:  0 auto;font-size: 16px;color: #555555;}
-            h1{background-color: #f4f4f4;padding: 20px;margin-top: 20px;}
-            h2{padding: 20px;}
-            p{padding: 10px 20px;line-height: 26px;}	
-            footer{padding: 20px;}
-            footer a{text-decoration: none;color: #155197;}
-        </style>
-    </head>
-    <body>
-        <div class="page">
-            <h1>Message envoyé sur le portfolio</h1>
-            <h2>De '.$name.' le '.date("d/m/y à G:i").'</h2>
-            <p>'.$message.'</p>
-            <p><strong>Adresse mail: </strong>'.$mail.'</p>
-            <footer>
-                <a href="http://julianchristmann.fr/">julianchristmann.fr</a>
-            </footer>
-        </div>
-    </body>
-    </html>';
-    
-    $errors = [];
+    //Recaptcha verification
+    require 'recaptcha.php';
+    if(recaptcha($_POST['g-recaptcha-response'])){
         
-    // Verification length of name
-    if(strlen($name) < 3){
-        $errors['name'] = 'Votre pseudo est trop court';
-    }
-
-    // Verification length of message
-    if(strlen($message) < 10){
-        $errors['message'] = 'Votre message est trop court';
-    }
-
-    // Verification of mail
-    if(filter_var($mail, FILTER_VALIDATE_EMAIL)){
-
+        //Template mail html
+        require 'templateMail.php';
+        $content= templateMail($name, $message, $mail);
+        
+        //Verification
+        require 'verification.php';
+        $errors = verification($name, $message, $mail);
+    
         if(empty($errors)){
-
+    
             mail("julianchrsit@gmail.com", $object, $content, array(
                 'MIME-Version' => '1.0',
                 'Content-type' => 'text/html; charset=UTF-8'
             ));
-
+    
             $success = 1;
-
         }
-
     }else{
-        $errors['email'] = 'Votre adresse email est invalide';
+        $errors['recaptcha'] = 'Valider le recaptcha';
     }
-     
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -276,7 +240,7 @@ if(!empty($_POST['email']) && !empty($_POST['name']) && !empty($_POST['message']
                 
                 ?>
 
-                <form action="index.php" method="post" class="contact-form">
+                <form action="index.php" method="post" class="contact-form" id="send">
 
                     <!-- Show error -->
                     <?php if(isset($errors['name'])){
@@ -298,6 +262,13 @@ if(!empty($_POST['email']) && !empty($_POST['name']) && !empty($_POST['message']
                     } ?>
 
                     <textarea name="message" id="" cols="0" rows="10" class="contact-input <?php if(!empty($errors['message'])){ echo 'alert-border';}  ?>" required ><?php if(!empty($message) && !empty($errors)){echo $message;}?></textarea>
+                    <div class="recaptcha">
+                        <!-- Show error -->
+                        <?php if(isset($errors['recaptcha'])){
+                            echo '<div class="alert-message">'.$errors['recaptcha'].'</div>';
+                        } ?>
+                        <div class="g-recaptcha" data-sitekey="6Le_VLsiAAAAALZ4esJjd6lX91S9DIyaUUQ4AUL9"></div>
+                    </div>
                     <input type="submit" value="Envoyer" class="contact-button button">
                 </form>
             </div>
@@ -320,5 +291,7 @@ if(!empty($_POST['email']) && !empty($_POST['name']) && !empty($_POST['message']
     <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
+    <!-- Recaptcha -->
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
 </body>
 </html>

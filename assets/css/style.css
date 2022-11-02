@@ -391,6 +391,10 @@ img{
     margin-left: auto;
 }
 
+.recaptcha{
+    margin-bottom: var(--mb-4);
+}
+
 /*----- Error form -----*/
 
 .alert{
