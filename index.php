@@ -82,8 +82,8 @@ if(!empty($_POST['email']) && !empty($_POST['name']) && !empty($_POST['message']
                 </div>
     
                 <div class="home-social">
-                    <a href="https://github.com/Christmann-Julian?tab=repositories" class="home-social-icon"><i class='bx bxl-github'></i></a>
-                    <a href="https://www.instagram.com/julian.christmann/" class="home-social-icon"><i class='bx bxl-instagram'></i></a>
+                    <a href="https://github.com/Christmann-Julian?tab=repositories" target="_blank" class="home-social-icon"><i class='bx bxl-github'></i></a>
+                    <a href="https://www.instagram.com/julian.christmann/" target="_blank" class="home-social-icon"><i class='bx bxl-instagram'></i></a>
                     <a href="#contact" class="home-social-icon"><i class='bx bx-envelope'></i></a>
                 </div>
     
@@ -146,7 +146,7 @@ if(!empty($_POST['email']) && !empty($_POST['name']) && !empty($_POST['message']
 
                 <div>
                     <h2 class="about-subtitle">Julian Christmann</h2>
-                    <p class="about-text">Au départ, j’ai commencé la programmation et le développement web pour créer des sites. Rapidement, le milieu de l’informatique est devenue une vraie vocation. Passionné par les nouvelles technologies, l’informatique et le web, je suis actuellement étudiant en BTS sio option slam au lycée Louis-armand 75015.</p>
+                    <p class="about-text">Au départ, j’ai commencé la programmation et le développement web pour créer des sites. Rapidement, le milieu de l’informatique est devenu une vraie vocation. Passionné par les nouvelles technologies, l’informatique et le web, je suis actuellement étudiant en BTS sio option slam au lycée Louis-armand 75015.</p>
                 </div>
             </div>
         </section>
@@ -278,8 +278,8 @@ if(!empty($_POST['email']) && !empty($_POST['name']) && !empty($_POST['message']
     <footer class="footer">
         <p class="footer-title">Julian Christmann</p>
         <div class="footer-social">
-            <a href="https://github.com/Christmann-Julian?tab=repositories" class="footer-icon"><i class='bx bxl-github'></i></a>
-            <a href="https://www.instagram.com/julian.christmann/" class="footer-icon"><i class='bx bxl-instagram'></i></a>
+            <a href="https://github.com/Christmann-Julian?tab=repositories" target="_blank" class="footer-icon"><i class='bx bxl-github'></i></a>
+            <a href="https://www.instagram.com/julian.christmann/" target="_blank" class="footer-icon"><i class='bx bxl-instagram'></i></a>
             <a href="#contact" class="footer-icon"><i class='bx bx-envelope'></i></a>
         </div>
         <p>&#169; copyright all right reserved</p>
