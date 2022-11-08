@@ -1,22 +1,24 @@
 <?php
 
 function verification($name, $message, $mail){
-    $errors = [];
+    $success = false;
                 
     // Verification length of name
     if(strlen($name) < 3){
-        $errors['name'] = 'Votre pseudo est trop court';
+        return $success;
     }
 
     // Verification length of message
     if(strlen($message) < 10){
-        $errors['message'] = 'Votre message est trop court';
+        return $success;
     }
 
     // Verification of mail
     if(filter_var($mail, FILTER_VALIDATE_EMAIL) == false){
-        $errors['email'] = 'Votre adresse email est invalide';
+        return $success;
     }
 
-    return $errors;
+    $success = true;
+
+    return $success;
 }

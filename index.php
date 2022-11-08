@@ -17,19 +17,17 @@ if(!empty($_POST['email']) && !empty($_POST['name']) && !empty($_POST['message']
         
         //Verification
         require 'verification.php';
-        $errors = verification($name, $message, $mail);
+        $success = verification($name, $message, $mail);
     
-        if(empty($errors)){
+        if($success){
+            echo $name;
     
             mail("julianchrsit@gmail.com", $object, $content, array(
                 'MIME-Version' => '1.0',
                 'Content-type' => 'text/html; charset=UTF-8'
             ));
-    
-            $success = 1;
+
         }
-    }else{
-        $errors['recaptcha'] = 'Valider le recaptcha';
     }
 }
 ?>
@@ -225,52 +223,20 @@ if(!empty($_POST['email']) && !empty($_POST['name']) && !empty($_POST['message']
         <section class="contact section" id="contact">
             <h2 class="section-title">Contact</h2>
             <div class="contact-container bd-grid">
-                
-                <?php
-
-                // Show errors
-
-                if(isset($success)){
-                    echo '<div class="alert" id="success">Message envoyée à Christmann Julian.</div>';
-                }
-                
-                if(!empty($errors)){
-                    echo '<div class="alert">Formulaire invalide.</div>';
-                }
-                
-                ?>
 
                 <form action="index.php" method="post" class="contact-form" id="send">
-
-                    <!-- Show error -->
-                    <?php if(isset($errors['name'])){
-                        echo '<div class="alert-message">'.$errors['name'].'</div>';
-                    } ?>
-
-                    <input type="text" name="name" placeholder="Nom" class="contact-input <?php if(!empty($errors['name'])){ echo 'alert-border';}  ?>" required <?php if(!empty($name) && !empty($errors)){echo 'value="'.$name.'"';}?>>
-
-                    <!-- Show error -->
-                    <?php if(isset($errors['email'])){
-                        echo '<div class="alert-message">'.$errors['email'].'</div>';
-                    } ?>
-
-                    <input type="mail" name="email" placeholder="Email" class="contact-input <?php if(!empty($errors['email'])){ echo 'alert-border';}  ?>" required <?php if(!empty($mail) && !empty($errors)){echo 'value="'.$mail.'"';}?>>
-
-                    <!-- Show error -->
-                    <?php if(isset($errors['message'])){
-                        echo '<div class="alert-message">'.$errors['message'].'</div>';
-                    } ?>
-
-                    <textarea name="message" id="" cols="0" rows="10" class="contact-input <?php if(!empty($errors['message'])){ echo 'alert-border';}  ?>" required ><?php if(!empty($message) && !empty($errors)){echo $message;}?></textarea>
+                    <small></small>
+                    <input type="text" name="name" placeholder="Nom" class="contact-input" required <?php if(!empty($name)){echo 'value="'.$name.'"';}?>>                    
+                    <small></small>
+                    <input type="mail" name="email" placeholder="Email" class="contact-input" required <?php if(!empty($mail)){echo 'value="'.$mail.'"';}?>>                    
+                    <small></small>
+                    <textarea name="message" id="" cols="0" rows="10" class="contact-input" required ><?php if(!empty($message)){echo $message;}?></textarea>
                     <div class="recaptcha">
-                        <!-- Show error -->
-                        <?php if(isset($errors['recaptcha'])){
-                            echo '<div class="alert-message">'.$errors['recaptcha'].'</div>';
-                        } ?>
                         <div class="g-recaptcha" data-sitekey="6Le_VLsiAAAAALZ4esJjd6lX91S9DIyaUUQ4AUL9"></div>
                     </div>
                     <input type="submit" value="Envoyer" class="contact-button button">
                 </form>
+
             </div>
         </section>
     </main>
@@ -291,6 +257,8 @@ if(!empty($_POST['email']) && !empty($_POST['name']) && !empty($_POST['message']
     <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
+    <!-- Validation JS -->
+    <script src="assets/js/validation.js"></script>
     <!-- Recaptcha -->
     <script src='https://www.google.com/recaptcha/api.js' async defer></script>
 </body>

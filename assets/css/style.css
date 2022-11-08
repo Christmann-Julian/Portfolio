@@ -397,27 +397,18 @@ img{
 
 /*----- Error form -----*/
 
-.alert{
-	color: var(--third-color);
-	padding: 10px 100px;
-	margin: calc(10px - 2rem) 0 20px 0;
-    background-color: #ca6956;
-	border-radius: .5rem;
-	text-align: center;
+.alert-error{
+	color: #ca6956;
+	font-size: 15px;
 }
 
-.alert-message{
-	color: #ca6956;
+.alert-success{
+	color: #77be1b;
 	font-size: 15px;
 }
 
 .alert-border{
 	border: 3px solid #ca6956;
-}
-
-#success{
-    padding: 10px 20px;
-    background-color: rgb(17, 185, 25);
 }
 
 /*----- Footer -----*/
